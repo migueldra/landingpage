@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#FFA500;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#B8860B;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" fill="#000000"/>
+  <path d="M128 60 L128 100" stroke="url(#gold)" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <circle cx="128" cy="110" r="12" fill="url(#gold)"/>
+  <path d="M128 122 L128 145" stroke="url(#gold)" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <ellipse cx="128" cy="160" rx="35" ry="15" fill="url(#gold)" opacity="0.3"/>
+  <circle cx="95" cy="175" r="3" fill="url(#gold)" opacity="0.5"/>
+  <circle cx="110" cy="168" r="2.5" fill="url(#gold)" opacity="0.6"/>
+  <circle cx="125" cy="172" r="3.5" fill="url(#gold)" opacity="0.4"/>
+  <circle cx="140" cy="165" r="2" fill="url(#gold)" opacity="0.7"/>
+  <circle cx="155" cy="170" r="3" fill="url(#gold)" opacity="0.5"/>
+  <circle cx="85" cy="190" r="4" fill="url(#gold)" opacity="0.4"/>
+  <circle cx="105" cy="185" r="3" fill="url(#gold)" opacity="0.5"/>
+  <circle cx="120" cy="192" r="3.5" fill="url(#gold)" opacity="0.3"/>
+  <circle cx="145" cy="188" r="4" fill="url(#gold)" opacity="0.4"/>
+  <circle cx="165" cy="183" r="3" fill="url(#gold)" opacity="0.6"/>
+  <circle cx="75" cy="205" r="2.5" fill="url(#gold)" opacity="0.3"/>
+  <circle cx="100" cy="202" r="3" fill="url(#gold)" opacity="0.4"/>
+  <circle cx="130" cy="208" r="2" fill="url(#gold)" opacity="0.5"/>
+  <circle cx="155" cy="200" r="3.5" fill="url(#gold)" opacity="0.3"/>
+  <circle cx="175" cy="195" r="2.5" fill="url(#gold)" opacity="0.4"/>
+</svg>
