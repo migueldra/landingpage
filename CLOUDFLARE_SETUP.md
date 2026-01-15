@@ -11,11 +11,13 @@ Si las dependencias no se instalan en Cloudflare Pages, sigue estos pasos:
 3. Agrega estas variables:
 
 ### Build Settings
-- **Build command:** `npm ci --legacy-peer-deps && npm run build`
+- **Build command:** `npm ci --legacy-peer-deps && npx prisma generate && npm run build`
 - **Build output directory:** `.next`
 - **Root directory:** `/` (dejar vacío o `/`)
 
-**Nota:** Se usa `--legacy-peer-deps` porque `@typescript-eslint` v6 requiere ESLint 7-8, pero el proyecto usa ESLint 9. Esto permite que el build continúe sin errores.
+**Nota importante:** 
+- Se usa `--legacy-peer-deps` porque `@typescript-eslint` v6 requiere ESLint 7-8, pero el proyecto usa ESLint 9.
+- Se ejecuta `prisma generate` explícitamente en el build command porque el script `postinstall` puede fallar por permisos en Cloudflare Pages.
 
 ### Environment Variables
 ```

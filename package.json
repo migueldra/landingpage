@@ -6,8 +6,7 @@
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "prisma generate",
-    "install:cloudflare": "npm ci --legacy-peer-deps"
+    "postinstall": "prisma generate || true"
   },
   "prisma": {
     "seed": "tsx --require dotenv/config scripts/seed.ts"
