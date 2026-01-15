@@ -2,10 +2,7 @@
 # Script de build para Cloudflare Pages
 
 # Instalar dependencias
-npm ci
-
-# Generar Prisma Client
-npx prisma generate
+npm ci --legacy-peer-deps
 
 # Build de Next.js
 npm run build
