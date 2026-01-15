@@ -16,4 +16,10 @@ const nextConfig = {
   images: { unoptimized: true },
 };
 
-module.exports = nextConfig;
+// Configuración para Cloudflare Pages
+if (process.env.CF_PAGES === '1' || process.env.CF_PAGES_BRANCH) {
+  const { withCloudflarePagesAdapter } = require('@cloudflare/next-on-pages/next-config');
+  module.exports = withCloudflarePagesAdapter(nextConfig);
+} else {
+  module.exports = nextConfig;
+}

@@ -4,5 +4,5 @@
 # Instalar dependencias
 npm ci --legacy-peer-deps
 
-# Build de Next.js
-npm run build
+# Build de Next.js con adaptador de Cloudflare
+npm run build:cf
