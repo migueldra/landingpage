@@ -1512,14 +1512,6 @@ export default function LandingPage() {
           <div className={`mt-8 pt-6 border-t transition-colors duration-300 ${borderClass('border-white/10', 'border-gray-200')}`}>
             <div className="flex flex-col md:flex-row items-center justify-center gap-4 text-center text-sm">
               <p className={textClass('text-gray-500', 'text-gray-600')}>© 2026 AURA DRIVE Colombia. Todos los derechos reservados.</p>
-              <span className="hidden md:inline">•</span>
-              <a 
-                href="/test-email"
-                className="text-gold hover:text-gold/80 transition-colors flex items-center gap-1"
-              >
-                <Mail className="w-4 h-4" />
-                Probar Email
-              </a>
             </div>
           </div>
         </div>
