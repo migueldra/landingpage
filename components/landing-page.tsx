@@ -51,6 +51,7 @@ export default function LandingPage() {
   const [isDarkMode, setIsDarkMode] = useState(true)
   const [isMobile, setIsMobile] = useState(false)
   const [selectedFragrance, setSelectedFragrance] = useState<number | null>(null)
+  const [selectedGalleryImage, setSelectedGalleryImage] = useState<number | null>(null)
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({})
   const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set())
 
@@ -135,29 +136,59 @@ export default function LandingPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e?.preventDefault?.()
     
-    // Validar todos los campos
+    // Validar todos los campos con mensajes específicos
     const errors: Record<string, string> = {}
-    if (!formData?.nombre) errors.nombre = 'Este campo es obligatorio'
-    if (!formData?.apellidos) errors.apellidos = 'Este campo es obligatorio'
-    if (!formData?.telefono) {
-      errors.telefono = 'Este campo es obligatorio'
+    
+    if (!formData?.nombre || formData.nombre.trim() === '') {
+      errors.nombre = 'El nombre es obligatorio'
+    }
+    
+    if (!formData?.apellidos || formData.apellidos.trim() === '') {
+      errors.apellidos = 'Los apellidos son obligatorios'
+    }
+    
+    if (!formData?.telefono || formData.telefono.trim() === '') {
+      errors.telefono = 'El teléfono es obligatorio'
     } else if (!validatePhone(formData.telefono)) {
-      errors.telefono = 'Ingresa un teléfono válido'
+      errors.telefono = 'Ingresa un teléfono válido (10 dígitos, empezando con 3). Ejemplo: 300 123 4567'
     }
-    if (!formData?.email) {
-      errors.email = 'Este campo es obligatorio'
+    
+    if (!formData?.email || formData.email.trim() === '') {
+      errors.email = 'El correo electrónico es obligatorio'
     } else if (!validateEmail(formData.email)) {
-      errors.email = 'Ingresa un email válido'
+      errors.email = 'Ingresa un correo electrónico válido. Ejemplo: tu@email.com'
     }
-    if (!formData?.departamento) errors.departamento = 'Este campo es obligatorio'
-    if (!formData?.ciudad) errors.ciudad = 'Este campo es obligatorio'
-    if (!formData?.direccion) errors.direccion = 'Este campo es obligatorio'
+    
+    if (!formData?.departamento || formData.departamento === '') {
+      errors.departamento = 'Debes seleccionar un departamento'
+    }
+    
+    if (!formData?.ciudad || formData.ciudad === '') {
+      errors.ciudad = 'Debes seleccionar una ciudad'
+    }
+    
+    if (!formData?.direccion || formData.direccion.trim() === '') {
+      errors.direccion = 'La dirección es obligatoria'
+    }
     
     setFieldErrors(errors)
     
     if (Object.keys(errors).length > 0) {
-      // Marcar todos los campos como tocados
+      // Marcar todos los campos con error como tocados
       setTouchedFields(new Set(Object.keys(errors)))
+      
+      // Hacer scroll al primer campo con error
+      const firstErrorField = Object.keys(errors)[0]
+      setTimeout(() => {
+        const errorElement = document.querySelector(`[name="${firstErrorField}"]`)
+        if (errorElement) {
+          errorElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
+          if (errorElement instanceof HTMLElement) {
+            errorElement.focus()
+          }
+        }
+      }, 100)
+      
       return
     }
     
@@ -725,7 +756,7 @@ export default function LandingPage() {
                   transition={{ delay: i * 0.05 }}
                   whileHover={{ scale: 1.03, zIndex: 10 }}
                   className="aspect-[4/5] relative rounded-2xl overflow-hidden cursor-pointer group shadow-lg hover:shadow-2xl transition-all duration-300 border border-white/10"
-                  onClick={() => setActiveImage(i)}
+                  onClick={() => setSelectedGalleryImage(i)}
                 >
                   <Image
                     src={img ?? '/images/product-1.jpg'}
@@ -762,7 +793,7 @@ export default function LandingPage() {
               className="text-center mt-8"
             >
               <button
-                onClick={() => setActiveImage(6)}
+                onClick={() => setSelectedGalleryImage(6)}
                 className="px-8 py-3 rounded-full border-2 border-gold/50 text-gold hover:bg-gold/10 transition-all duration-300 font-semibold"
               >
                 Ver Más Imágenes ({images.length - 6})
@@ -957,6 +988,95 @@ export default function LandingPage() {
                       <ArrowRight className="w-5 h-5" />
                     </button>
                   </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Modal de Detalles de Imagen de Galería */}
+      <AnimatePresence>
+        {selectedGalleryImage !== null && images?.[selectedGalleryImage] && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            onClick={() => setSelectedGalleryImage(null)}
+          >
+            <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" />
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className={`relative max-w-4xl w-full rounded-2xl overflow-hidden ${bgClass('bg-[#1a1a2e]', 'bg-white')} border ${borderClass('border-white/20', 'border-gray-200')} shadow-2xl`}
+            >
+              <button
+                onClick={() => setSelectedGalleryImage(null)}
+                className={`absolute top-4 right-4 z-10 w-10 h-10 rounded-full flex items-center justify-center ${bgClass('bg-white/10 hover:bg-white/20', 'bg-gray-100 hover:bg-gray-200')} transition-colors`}
+              >
+                <X className={`w-5 h-5 ${textClass('text-white', 'text-gray-900')}`} />
+              </button>
+              
+              <div className="relative h-96 md:h-[500px] overflow-hidden">
+                <Image
+                  src={images[selectedGalleryImage] ?? '/images/product-1.jpg'}
+                  alt={`AURA DRIVE imagen ${selectedGalleryImage + 1}`}
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              
+              <div className="p-6 md:p-8">
+                <div className="mb-4">
+                  <h2 className="text-2xl md:text-3xl font-bold mb-2">
+                    {[
+                      'Difusión Inteligente',
+                      'Diversidad De Olores',
+                      'Lavanda Relajante',
+                      'Bosque Fresco',
+                      'Diseño Premium',
+                      'Tecnología 360°',
+                      'Vista Detallada'
+                    ][selectedGalleryImage] ?? `Imagen ${selectedGalleryImage + 1}`}
+                  </h2>
+                  <p className={`text-lg ${textClass('text-gray-300', 'text-gray-700')}`}>
+                    {[
+                      'Sistema de atomización 360° que distribuye la fragancia uniformemente por todo el vehículo, creando un ambiente aromático perfecto.',
+                      'Experimenta una amplia gama de olores frescos y naturales que transforman tu experiencia de conducción.',
+                      'Fragancia relajante de lavanda que reduce el estrés y crea un ambiente calmante durante tus viajes.',
+                      'Aroma fresco de bosque que energiza y revitaliza, eliminando olores desagradables instantáneamente.',
+                      'Diseño elegante y premium con materiales de alta calidad que complementan cualquier interior de vehículo.',
+                      'Tecnología avanzada de difusión que garantiza una distribución uniforme de la fragancia en todos los ángulos.',
+                      'Vista detallada del producto AURA DRIVE mostrando sus características y diseño premium.'
+                    ][selectedGalleryImage] ?? 'Detalle del producto AURA DRIVE'}
+                  </p>
+                </div>
+                
+                <div className="flex items-center justify-between pt-4 border-t border-white/10">
+                  <div className="flex gap-2">
+                    {selectedGalleryImage > 0 && (
+                      <button
+                        onClick={() => setSelectedGalleryImage(selectedGalleryImage - 1)}
+                        className="px-4 py-2 rounded-lg border border-white/20 hover:bg-white/10 transition-colors"
+                      >
+                        ← Anterior
+                      </button>
+                    )}
+                    {selectedGalleryImage < (images.length - 1) && (
+                      <button
+                        onClick={() => setSelectedGalleryImage(selectedGalleryImage + 1)}
+                        className="px-4 py-2 rounded-lg border border-white/20 hover:bg-white/10 transition-colors"
+                      >
+                        Siguiente →
+                      </button>
+                    )}
+                  </div>
+                  <span className={`text-sm ${textClass('text-gray-400', 'text-gray-600')}`}>
+                    {selectedGalleryImage + 1} de {images.length}
+                  </span>
                 </div>
               </div>
             </motion.div>
@@ -1184,6 +1304,7 @@ export default function LandingPage() {
                     </label>
                     <input
                       type="text"
+                      name="nombre"
                       required
                       autoComplete="given-name"
                       value={formData?.nombre ?? ''}
@@ -1206,6 +1327,7 @@ export default function LandingPage() {
                     </label>
                     <input
                       type="text"
+                      name="apellidos"
                       required
                       autoComplete="family-name"
                       value={formData?.apellidos ?? ''}
@@ -1231,6 +1353,7 @@ export default function LandingPage() {
                     </label>
                     <input
                       type="tel"
+                      name="telefono"
                       required
                       inputMode="numeric"
                       autoComplete="tel"
@@ -1255,6 +1378,7 @@ export default function LandingPage() {
                     </label>
                     <input
                       type="email"
+                      name="email"
                       required
                       autoComplete="email"
                       value={formData?.email ?? ''}
@@ -1292,6 +1416,7 @@ export default function LandingPage() {
                       Departamento <span className="text-gold">*</span>
                     </label>
                     <select
+                      name="departamento"
                       required
                       autoComplete="address-level1"
                       value={formData?.departamento ?? ''}
@@ -1317,6 +1442,7 @@ export default function LandingPage() {
                       Ciudad <span className="text-gold">*</span>
                     </label>
                     <select
+                      name="ciudad"
                       required
                       autoComplete="address-level2"
                       value={formData?.ciudad ?? ''}
@@ -1353,6 +1479,7 @@ export default function LandingPage() {
                   </label>
                   <input
                     type="text"
+                    name="direccion"
                     required
                     autoComplete="street-address"
                     value={formData?.direccion ?? ''}

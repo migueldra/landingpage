@@ -1,0 +1,6 @@
+# Archivos que Cloudflare Pages puede ignorar durante el build
+node_modules
+.next
+.vercel
+.env.local
+.env*.local
