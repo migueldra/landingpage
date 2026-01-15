@@ -50,8 +50,10 @@ npm start
 #### Build Settings:
 - **Build command:**
   ```bash
-  npm ci --legacy-peer-deps && npm run build:cf
+  npm install --legacy-peer-deps && npm run build:cf
   ```
+  > ⚠️ **IMPORTANTE**: Usamos `npm install` en lugar de `npm ci` porque Cloudflare ejecuta `npm ci` automáticamente antes del build command, y ese comando no incluye `--legacy-peer-deps`. Al usar `npm install --legacy-peer-deps`, forzamos la instalación correcta.
+  > 
   > Nota: `build:cf` ejecuta `next build` y luego `npx @cloudflare/next-on-pages` para generar el output compatible con Cloudflare Pages.
 
 - **Build output directory:**
@@ -138,8 +140,9 @@ npm install --legacy-peer-deps
 ### Si el build falla en Cloudflare:
 1. Verifica que el Build command sea exactamente:
    ```bash
-   npm ci --legacy-peer-deps && npm run build:cf
+   npm install --legacy-peer-deps && npm run build:cf
    ```
+   > Nota: Usamos `npm install` porque Cloudflare ejecuta `npm ci` automáticamente antes, y ese comando no incluye `--legacy-peer-deps`.
 2. Verifica que el Build output directory sea:
    ```
    .vercel/output/static
