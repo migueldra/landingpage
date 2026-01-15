@@ -50,9 +50,9 @@ npm start
 #### Build Settings:
 - **Build command:**
   ```bash
-  npm install --legacy-peer-deps && npm run build:cf
+  rm -rf node_modules package-lock.json && npm install --legacy-peer-deps && npm run build:cf
   ```
-  > ⚠️ **IMPORTANTE**: Usamos `npm install` en lugar de `npm ci` porque Cloudflare ejecuta `npm ci` automáticamente antes del build command, y ese comando no incluye `--legacy-peer-deps`. Al usar `npm install --legacy-peer-deps`, forzamos la instalación correcta.
+  > ⚠️ **IMPORTANTE**: Limpiamos `node_modules` y `package-lock.json` porque Cloudflare ejecuta `npm ci` automáticamente antes del build command, y ese comando falla si el lockfile no está perfectamente sincronizado. Al limpiar y reinstalar con `npm install --legacy-peer-deps`, forzamos una instalación limpia y correcta.
   > 
   > Nota: `build:cf` ejecuta `next build` y luego `npx @cloudflare/next-on-pages` para generar el output compatible con Cloudflare Pages.
 
@@ -140,9 +140,9 @@ npm install --legacy-peer-deps
 ### Si el build falla en Cloudflare:
 1. Verifica que el Build command sea exactamente:
    ```bash
-   npm install --legacy-peer-deps && npm run build:cf
+   rm -rf node_modules package-lock.json && npm install --legacy-peer-deps && npm run build:cf
    ```
-   > Nota: Usamos `npm install` porque Cloudflare ejecuta `npm ci` automáticamente antes, y ese comando no incluye `--legacy-peer-deps`.
+   > Nota: Limpiamos y reinstalamos porque Cloudflare ejecuta `npm ci` automáticamente antes, y ese comando falla si el lockfile no está perfectamente sincronizado.
 2. Verifica que el Build output directory sea:
    ```
    .vercel/output/static
