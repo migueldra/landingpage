@@ -4,7 +4,9 @@ import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const dynamic = "force-dynamic"
+// dynamic solo para Cloudflare Pages, no para GitHub Pages (export estático)
+// Comentado para GitHub Pages - descomentar si necesitas dynamic en Cloudflare
+// export const dynamic = "force-dynamic"
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXTAUTH_URL || 'http://localhost:3000'),
