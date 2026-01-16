@@ -74,7 +74,9 @@ npm start
 #### Environment Variables (Settings > Environment variables):
 ```
 NODE_VERSION = 20.x
+NEXT_PUBLIC_SITE_URL = https://tu-dominio.com
 ```
+> ⚠️ **IMPORTANTE**: Reemplaza `tu-dominio.com` con tu dominio real (ej: `https://auradrive.com` o `https://www.auradrive.com`)
 
 ### Despliegue Manual (solo para pruebas locales)
 

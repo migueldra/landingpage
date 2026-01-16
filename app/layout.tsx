@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ['latin'] })
 export const dynamic = "force-dynamic"
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXTAUTH_URL || 'http://localhost:3000'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXTAUTH_URL || 'http://localhost:3000'),
   title: 'AURA DRIVE | Difusor de Aromas Premium para tu Auto',
   description: 'Transforma tu auto en un santuario aromático con tecnología inteligente. Difusor automático con hasta 4 meses de fragancia premium. Envío a toda Colombia.',
   keywords: 'difusor auto, aromaterapia vehicular, ambientador carro, AURA DRIVE, difusor aromas Colombia',
