@@ -4,7 +4,17 @@ export const dynamic = "force-dynamic"
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json()
+    const body = await request.json() as {
+      nombre?: string;
+      apellidos?: string;
+      telefono?: string;
+      departamento?: string;
+      ciudad?: string;
+      direccion?: string;
+      complementos?: string;
+      email?: string;
+      fragancia?: string;
+    }
     
     const { nombre, apellidos, telefono, departamento, ciudad, direccion, complementos, email, fragancia } = body ?? {}
     
