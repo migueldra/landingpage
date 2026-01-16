@@ -50,17 +50,15 @@ npm start
 #### Build Settings:
 - **Build command:**
   ```bash
-  rm -rf node_modules package-lock.json && npm install --legacy-peer-deps && npm run build:cf
+  npm run build:cf
   ```
-  > ⚠️ **IMPORTANTE**: Limpiamos `node_modules` y `package-lock.json` porque Cloudflare ejecuta `npm ci` automáticamente antes del build command, y ese comando falla si el lockfile no está perfectamente sincronizado. Al limpiar y reinstalar con `npm install --legacy-peer-deps`, forzamos una instalación limpia y correcta.
-  > 
-  > Nota: `build:cf` ejecuta `next build` y luego `npx @cloudflare/next-on-pages` para generar el output compatible con Cloudflare Pages.
+  > ⚠️ **IMPORTANTE**: Este comando ejecuta `next build` y luego `npx @opennextjs/cloudflare build` para generar el output compatible con Cloudflare Pages usando OpenNext (compatible con Next.js 15).
 
 - **Build output directory:**
   ```
-  .vercel/output/static
+  .opennext
   ```
-  > Este es el directorio que genera el adaptador `@cloudflare/next-on-pages`.
+  > Este es el directorio que genera el adaptador `@opennextjs/cloudflare` (OpenNext).
 
 - **Root directory:**
   ```
@@ -140,13 +138,14 @@ npm install --legacy-peer-deps
 ### Si el build falla en Cloudflare:
 1. Verifica que el Build command sea exactamente:
    ```bash
-   rm -rf node_modules package-lock.json && npm install --legacy-peer-deps && npm run build:cf
+   npm run build:cf
    ```
-   > Nota: Limpiamos y reinstalamos porque Cloudflare ejecuta `npm ci` automáticamente antes, y ese comando falla si el lockfile no está perfectamente sincronizado.
+   > **CRÍTICO**: Cloudflare Pages puede detectar automáticamente `@cloudflare/next-on-pages` y ejecutarlo. Debes configurar manualmente el build command en el dashboard para usar `npm run build:cf`.
 2. Verifica que el Build output directory sea:
    ```
-   .vercel/output/static
+   .opennext
    ```
+   > Este es el directorio generado por OpenNext, NO `.vercel/output/static`
 3. **Asegúrate de que NO haya un "Deploy command" configurado** (debe estar vacío)
 4. Verifica que `NODE_VERSION = 20.x` esté configurado
 5. Revisa los logs de build en Cloudflare Pages
