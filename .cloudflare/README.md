@@ -12,9 +12,10 @@ Cloudflare Pages detecta automáticamente proyectos Next.js y ejecuta `@cloudfla
 
 ### Build Settings
 - **Framework preset:** `None` (o "No preset")
-- **Build command:** `npm run build:cf`
+- **Build command:** `npm run build:worker`
 - **Build output directory:** `.opennext`
 - **Root directory:** `/` (raíz del proyecto) o déjalo vacío
+- **Deploy command:** `npx wrangler deploy` (o déjalo vacío si usas Pages automático)
 
 ### Environment Variables
 - `NODE_VERSION`: `20.x` (o la versión que uses)
@@ -24,8 +25,9 @@ Cloudflare Pages detecta automáticamente proyectos Next.js y ejecuta `@cloudfla
 El proyecto ahora usa `@opennextjs/cloudflare` que es compatible con Next.js 15.
 
 **IMPORTANTE:** 
-- El comando de build debe ser: `npm run build:cf`
+- El comando de build debe ser: `npm run build:worker`
 - El output directory debe ser: `.opennext`
+- El archivo `wrangler.jsonc` está configurado para apuntar a `.opennext/worker.js` y `.opennext/assets`
 - NO uses `@cloudflare/next-on-pages` (está deprecado y no compatible con Next.js 15)
 
 ## Notas Importantes
@@ -37,6 +39,8 @@ El proyecto ahora usa `@opennextjs/cloudflare` que es compatible con Next.js 15.
 ## Si tienes problemas
 
 1. Verifica que `package.json` tenga `@opennextjs/cloudflare` instalado
-2. Asegúrate de que el build command sea `npm run build:cf`
+2. Asegúrate de que el build command sea `npm run build:worker`
 3. Verifica que el output directory sea `.opennext`
-4. Revisa los logs de build en Cloudflare para ver el error específico
+4. Verifica que `wrangler.jsonc` esté en la raíz del proyecto
+5. Asegúrate de que el Root directory en Cloudflare apunte a `/` (donde está `wrangler.jsonc`)
+6. Revisa los logs de build en Cloudflare para ver el error específico
