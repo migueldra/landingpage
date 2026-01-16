@@ -5,7 +5,7 @@
 Cloudflare Pages detecta automáticamente proyectos Next.js y ejecuta `@cloudflare/next-on-pages` (incompatible con Next.js 15).
 
 **SOLUCIÓN:**
-1. Ve a **Cloudflare Pages Dashboard** → Tu proyecto
+1. Ve a **Cloudflare Pa ges Dashboard** → Tu proyecto
 2. **Settings** → **Builds & deployments**
 3. En **Framework preset**, selecciona **"None"** o **"No preset"** (NO uses "Next.js")
 4. Configura manualmente los siguientes valores:

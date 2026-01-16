@@ -50,9 +50,15 @@ npm start
 #### Build Settings:
 - **Build command:**
   ```bash
-  npm run build:cf
+  npm run build:worker
   ```
-  > ⚠️ **IMPORTANTE**: Este comando ejecuta `next build` y luego `npx @opennextjs/cloudflare build` para generar el output compatible con Cloudflare Pages usando OpenNext (compatible con Next.js 15).
+  > ⚠️ **IMPORTANTE**: Este comando ejecuta `next build` y luego `npx @opennextjs/cloudflare build` para generar el worker y assets en `.opennext/` usando OpenNext (compatible con Next.js 15).
+  
+- **Deploy command (opcional):**
+  ```bash
+  npx wrangler deploy
+  ```
+  > ⚠️ **NOTA**: Si usas Cloudflare Pages, puedes dejar esto vacío y Pages desplegará automáticamente. Si usas Workers, necesitas este comando.
 
 - **Build output directory:**
   ```

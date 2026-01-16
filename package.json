@@ -5,7 +5,9 @@
     "dev": "next dev",
     "build": "next build",
     "build:cf": "next build && npx @opennextjs/cloudflare build",
+    "build:worker": "next build && npx @opennextjs/cloudflare build",
     "preview": "npx @opennextjs/cloudflare preview",
+    "deploy": "npm run build:worker && wrangler deploy",
     "start": "next start",
     "lint": "next lint"
   },
