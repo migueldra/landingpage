@@ -1,13 +1,20 @@
 # Configuración para Cloudflare Pages con OpenNext
 
-## Variables de Entorno Necesarias
+## ⚠️ IMPORTANTE: Deshabilitar Detección Automática
 
-En el panel de Cloudflare Pages (Settings > Environment variables), configura:
+Cloudflare Pages detecta automáticamente proyectos Next.js y ejecuta `@cloudflare/next-on-pages` (incompatible con Next.js 15).
+
+**SOLUCIÓN:**
+1. Ve a **Cloudflare Pages Dashboard** → Tu proyecto
+2. **Settings** → **Builds & deployments**
+3. En **Framework preset**, selecciona **"None"** o **"No preset"** (NO uses "Next.js")
+4. Configura manualmente los siguientes valores:
 
 ### Build Settings
+- **Framework preset:** `None` (o "No preset")
 - **Build command:** `npm run build:cf`
 - **Build output directory:** `.opennext`
-- **Root directory:** `/` (raíz del proyecto)
+- **Root directory:** `/` (raíz del proyecto) o déjalo vacío
 
 ### Environment Variables
 - `NODE_VERSION`: `20.x` (o la versión que uses)
